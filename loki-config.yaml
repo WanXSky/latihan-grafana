@@ -38,7 +38,7 @@ limits_config:
 schema_config:
   configs:
     # Skema konfigurasi dimulai dari tanggal 2025-10-2
-    - from: 2025-10-02
+    - from: 2025-10-01
       # engine storage yang digunakan
       store: boltdb-shipper
       # menyimpan data di local disk

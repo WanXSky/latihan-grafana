@@ -31,7 +31,9 @@ common:
     # Key Value Store di memori ( Restart data hilang )
     kvstore:
       store: inmemory
-      
+
+limits_config:
+  allow_structured_metadata: false
 # Konfigurasi skema dan struktur data
 schema_config:
   configs:

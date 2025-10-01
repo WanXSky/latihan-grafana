@@ -9,6 +9,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
@@ -19,7 +20,8 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - loki-data:/etc/loki
+      - loki_data:/etc/loki
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
     command:
       - config.file=/etc/loki/local-config.yaml
 
@@ -43,8 +45,9 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin # password default admin
     volumes:
-      - grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
 
 volumes:
-  grafana-data:
-  loki-data:
+  grafana_data:
+  loki_data:
+  prometheus_data:

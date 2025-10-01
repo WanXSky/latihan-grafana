@@ -38,9 +38,18 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    depends_on:
+      - grafana_init
     ports:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin # password default admin
+    volumes:
+      - ./grafana:/var/lib/grafana
+      
+  # grafana-init 
+  grafana-init:
+    image: busybox
+    command: sh -c "mkdir -p grafana && chown 472:472 grafana && chmod 755 grafana"
     volumes:
       - ./grafana:/var/lib/grafana

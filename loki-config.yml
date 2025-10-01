@@ -1,0 +1,50 @@
+# autentikasi dimatikan
+auth_enabled: false
+
+# konfigurasi server lokal
+server:
+  # port 3100 untuk koneksi HTTP ( Grafana, Promtail )
+  http_listen_port: 3100
+  # port 9096 untuk internal ( gRPC )
+  grpc_listen_port: 9096
+  
+# Pengaturan umum
+common:
+  # Direktori Dasar  atau base untuk menyimpan semua data loki
+  path_prefix: /loki
+  
+  # Pengaturan penyimpanan menggunakan local disk
+  storage:
+    filesystem:
+      # Tempat menyimpan potongan logs atau chunk
+      chunks_directory: /loki/chunks
+      # Tempat simpan File Rules untuk alerting
+      rules_directory: /loki/rules
+      
+  # Reflikasi data untuk dev = 1 untuk prod = 3
+  replication_factor: 1
+  
+  # Ring untuk kooridinasi antar komponen loki
+  ring:
+    # Alamat instance ini ( localhost )
+    instance_addr: 127.0.0.1
+    # Key Value Store di memori ( Restart data hilang )
+    kvstore:
+      store: inmemory
+      
+# Konfigurasi skema dan struktur data
+schema_config:
+  configs:
+    # Skema konfigurasi dimulai dari tanggal 2025-10-2
+    - from: 2025-10-02
+      # engine storage yang digunakan
+      store: boltdb-shipper
+      # menyimpan data di local disk
+      object_store: filesystem
+      # versi skema data
+      schema: v11
+      # konfigurasi index
+      index:
+        prefix: index_ # file index diawali dengan index_
+        period: 24h # buat file index baru setelah 24 jam
+        

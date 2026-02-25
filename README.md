@@ -103,5 +103,6 @@ Default Login:
 Clone repository:
 
 ```bash
-git clone <repo-url>
-cd <repo-folder>
+git clone https://github.com/WannSkyy/docker-observability-stack
+cd docker-observability-stack
+docker compose up -d
